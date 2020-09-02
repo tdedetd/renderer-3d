@@ -1,4 +1,5 @@
 import { MatrixError } from "../errors";
+import { listUtils } from '../utils';
 
 export class Matrix {
 
@@ -29,12 +30,11 @@ export class Matrix {
     this.rows = this.values.length;
     if (this.rows === 0) throw new MatrixError('There are 0 rows in matrix');
 
-    const rowLengths = this.values.map(row => row.length);
+    const lengthsOfRows = this.values.map(row => row.length);
 
-    rowLengths.reduce((prevLength, currLength) => {
-      if (prevLength !== currLength) throw new MatrixError(`Lengths of rows are different: ${rowLengths}`);
-      return currLength;
-    });
+    if (!listUtils.areElementsEqual(lengthsOfRows)) {
+      throw new MatrixError(`Lengths of rows are different: ${lengthsOfRows}`);
+    }
 
     if (this.values[0].length === 0) throw new MatrixError('There are 0 columns in matrix');
     this.columns = this.values[0].length;
