@@ -1,15 +1,8 @@
-import { Bitmap } from "./bitmap";
-import { Screen } from "./screen";
-import { Matrix3x3 } from './matrix';
+import { SystemOfLinearEquations, LinearEquation } from "./equations";
 
-const bitmap = new Bitmap(640, 480);
-const screen = new Screen('canvas');
-screen.draw(bitmap);
-
-const values = [
-  [ -4, 2, 0 ],
-  [ 3, 10, -5 ],
-  [ 1, 2, 2 ]
-];
-const matrix = new Matrix3x3(values);
-console.log('det', matrix.getDeterminant());
+const systemOfEquations = new SystemOfLinearEquations([
+  new LinearEquation([1, -1, 0], 3),
+  new LinearEquation([5, 0, 2], 8),
+  new LinearEquation([3, 0, -1], 7)
+]);
+console.log('solution', systemOfEquations.getSolution());

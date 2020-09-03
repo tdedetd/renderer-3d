@@ -3,8 +3,8 @@ import { listUtils } from '../utils';
 
 export class Matrix {
 
-  protected columns: number;
-  protected rows: number;
+  public columns: number;
+  public rows: number;
   protected values: number[][];
 
   constructor(values: number[][]) {
