@@ -13,8 +13,28 @@ export class Matrix {
     this.calculateSize();
   }
 
-  public getDeterminant(): number {
-    return 0;
+  public getDeterminant(multiplier: number = 1): number {
+
+    if (this.rows === 2 && this.columns === 2) {
+      return multiplier * this.values[0][0] * this.values[1][1] - multiplier * this.values[0][1] * this.values[1][0];
+    }
+
+    let determinant = 0;
+
+    for (let columnIndex = 0; columnIndex < this.columns; columnIndex++) {
+
+      const matrixValues: number[][] = [];
+      for (let rowIndex = 1; rowIndex < this.rows; rowIndex++) {
+        const row = this.values[rowIndex].slice();
+        row.splice(columnIndex, 1);
+        matrixValues.push(row);
+      }
+
+      const newMultiplier = multiplier * this.values[0][columnIndex];
+      determinant += (columnIndex % 2 === 0 ? 1 : -1) * new Matrix(matrixValues).getDeterminant(newMultiplier);
+    }
+
+    return determinant;
   }
 
   /**

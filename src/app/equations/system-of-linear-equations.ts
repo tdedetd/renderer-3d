@@ -1,26 +1,28 @@
 import { LinearEquation } from "./linear-equation";
 import { listUtils } from '../utils';
 import { EquationError } from '../errors';
-import { Matrix3x3 } from '../matrix';
+import { Matrix, Matrix3x3 } from '../matrix';
 
 export class SystemOfLinearEquations {
 
   equations: LinearEquation[];
+  MatrixClass: any;
 
   constructor(equations: LinearEquation[]) {
     this.equations = equations;
 
-    const lengthsOfCoefficients = equations.map(eq => eq.coefficients.length);
-    if (!listUtils.areElementsEqual(lengthsOfCoefficients)) {
-      throw new EquationError(`Different numbers of coefficients: ${lengthsOfCoefficients}`);
+    const numbersOfCoefficients = equations.map(eq => eq.coefficients.length);
+    if (!listUtils.areElementsEqual(numbersOfCoefficients)) {
+      throw new EquationError(`Different numbers of coefficients: ${numbersOfCoefficients}`);
     }
+
+    this.MatrixClass = numbersOfCoefficients.length === 3 ? Matrix3x3 : Matrix;
   }
 
   public getSolution(): number[] {
     // by Cramer's rule
 
-    // TODO: universalize. Only for 3x3 now
-    const matrix = new Matrix3x3(this.equations.map(eq => eq.coefficients));
+    const matrix = new this.MatrixClass(this.equations.map(eq => eq.coefficients));
 
     const mainDeterminant = matrix.getDeterminant();
     if (mainDeterminant === 0) return null;
@@ -35,7 +37,7 @@ export class SystemOfLinearEquations {
         valuesForMatrix.push(rowValues);
       }
 
-      solution.push(new Matrix3x3(valuesForMatrix).getDeterminant() / mainDeterminant);
+      solution.push(new this.MatrixClass(valuesForMatrix).getDeterminant() / mainDeterminant);
     }
     return solution;
   }
