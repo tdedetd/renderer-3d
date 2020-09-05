@@ -1,6 +1,7 @@
-import { Matrix } from "./matrix";
+import { SquareMatrix } from "./square-matrix";
 
-export class Matrix3x3 extends Matrix {
+export class Matrix3x3 extends SquareMatrix {
+
   constructor(values: number[][]) {
     super(values);
 

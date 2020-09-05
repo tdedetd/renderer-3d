@@ -1,13 +1,14 @@
 import { LinearEquation } from "./linear-equation";
 import { listUtils } from '../utils';
 import { EquationError } from '../errors';
-import { Matrix, Matrix3x3 } from '../matrix';
+import { Matrix3x3, SquareMatrix } from '../matrix';
 
 export class SystemOfLinearEquations {
 
   equations: LinearEquation[];
   MatrixClass: any;
 
+  // Number of variables = number of equations
   constructor(equations: LinearEquation[]) {
     this.equations = equations;
 
@@ -16,7 +17,7 @@ export class SystemOfLinearEquations {
       throw new EquationError(`Different numbers of coefficients: ${numbersOfCoefficients}`);
     }
 
-    this.MatrixClass = numbersOfCoefficients.length === 3 ? Matrix3x3 : Matrix;
+    this.MatrixClass = numbersOfCoefficients.length === 3 ? Matrix3x3 : SquareMatrix;
   }
 
   public getSolution(): number[] {
