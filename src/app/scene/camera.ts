@@ -1,5 +1,6 @@
 import { Line, Point3d, PointSpherical } from '../geometry';
 import { Rotation } from './rotation';
+import { AngleRange } from './angle-range';
 
 export class Camera {
 
@@ -26,6 +27,19 @@ export class Camera {
       rays.push(line);
     }
     return rays;
+  }
+
+  public getScreenBorders(width: number, height: number): AngleRange {
+    const vfov = this.getVerticalFov(width, height);
+    const zStart = this.rotation.z - this.fov / 2;
+    const yStart = this.rotation.y - vfov / 2;
+
+    return {
+      zStart,
+      zEnd: zStart + this.fov,
+      yStart,
+      yEnd: yStart + vfov
+    };
   }
 
   private getVerticalFov(width: number, height: number): number {
