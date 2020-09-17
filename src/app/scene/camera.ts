@@ -1,4 +1,4 @@
-import { Line, Point3d, PointSpherical } from '../geometry';
+import { Line3d, Point3d, PointSpherical } from '../geometry';
 import { Rotation } from './rotation';
 import { AngleRange } from './angle-range';
 
@@ -9,20 +9,20 @@ export class Camera {
   public fov: number = 90;
   public distance: number = 100;
 
-  public getRays(width: number, height: number): Line[][] {
-    const rays: Line[][] = [];
+  public getRays(width: number, height: number): Line3d[][] {
+    const rays: Line3d[][] = [];
     const vfov = this.getVerticalFov(width, height);
 
     const startAngleZ = this.rotation.z - this.fov / 2 + this.fov / 2 / width;
     const startAngleY = this.rotation.y - vfov / 2 + vfov / 2 / height;
 
     for (let y = 0; y < height; y++) {
-      const line: Line[] = [];
+      const line: Line3d[] = [];
       for (let x = 0; x < width; x++) {
         const angleZ = startAngleZ + this.fov * x / width;
         const angleY = startAngleY + vfov * y / height;
         const pointSpherical = new PointSpherical(this.distance, angleY, angleZ);
-        line.push(new Line(this.position, pointSpherical.toCartesian(this.position)));
+        line.push(new Line3d(this.position, pointSpherical.toCartesian(this.position)));
       }
       rays.push(line);
     }
