@@ -1,9 +1,7 @@
-import { Camera } from "./scene/camera";
+import { Renderer } from "./renderer";
+import { Scene, Camera } from "./scene";
 
-const camera = new Camera();
-const t0 = performance.now();
-const rays = camera.getRays(640, 480);
-const t1 = performance.now();
-
-console.log('rays', rays);
-console.log(`time - ${t1 - t0} ms`);
+const scene = new Scene();
+scene.setCamera(new Camera());
+const renderer = new Renderer(scene, 'canvas', 640, 480);
+renderer.draw();

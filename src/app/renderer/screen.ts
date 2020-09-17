@@ -1,4 +1,5 @@
 import { Point } from '../geometry';
+import { RendererError } from '../errors';
 
 export class Screen {
 
@@ -7,7 +8,7 @@ export class Screen {
 
   constructor(id: string, width: number, height: number) {
     this.canvasEl = <HTMLCanvasElement>document.getElementById(id);
-    if (!this.canvasEl) throw new Error(`Element '${id}' not found!`);
+    if (!this.canvasEl) throw new RendererError(`Element '${id}' not found!`);
 
     this.canvasEl.width = width;
     this.canvasEl.height = height;

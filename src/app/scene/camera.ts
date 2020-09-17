@@ -5,7 +5,7 @@ import { AngleRange } from './angle-range';
 export class Camera {
 
   public position: Point3d = new Point3d(0, 0, 0);
-  public rotation: Rotation = new Rotation(0, 0);
+  public rotation: Rotation = new Rotation(0, 0, 0);
   public fov: number = 90;
   public distance: number = 100;
 
