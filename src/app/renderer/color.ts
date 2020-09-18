@@ -1,13 +1,8 @@
 export class Color {
-  r: number;
-  g: number;
-  b: number;
 
-  constructor(r: number, g: number, b: number) {
-    this.r = r;
-    this.g = g;
-    this.b = b;
-  }
+  constructor(public r: number,
+              public g: number,
+              public b: number) {}
 
   public toString() {
     return `rgb(${this.r}, ${this.g}, ${this.b})`;

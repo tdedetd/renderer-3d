@@ -2,20 +2,14 @@ import { Point3d } from "./point-3d";
 
 export class PointSpherical {
 
-  public readonly distance: number;
-  public readonly angleVertical: number;
-  public readonly angleHorizontal: number;
-
   /**
    * @param distance distance from origin to point
    * @param angleVertical latitude. from -90 to 90
    * @param angleHorizontal azimuthal angle
    */
-  constructor(distance: number, angleVertical: number, angleHorizontal: number) {
-    this.distance = distance;
-    this.angleVertical = angleVertical;
-    this.angleHorizontal = angleHorizontal;
-  }
+  constructor(public readonly distance: number,
+              public readonly angleVertical: number,
+              public readonly angleHorizontal: number) {}
 
   public toCartesian(origin?: Point3d): Point3d {
     const angleVerticalRad = (this.angleVertical + 90) * Math.PI / 180;
