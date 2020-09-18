@@ -3,10 +3,14 @@ import { RendererError } from '../errors';
 
 export class Screen {
 
+  public readonly width: number;
+  public readonly height: number;
   private canvasEl: HTMLCanvasElement;
   private context: CanvasRenderingContext2D;
 
   constructor(id: string, width: number, height: number) {
+    this.width = width;
+    this.height = height;
     this.canvasEl = <HTMLCanvasElement>document.getElementById(id);
     if (!this.canvasEl) throw new RendererError(`Element '${id}' not found!`);
 

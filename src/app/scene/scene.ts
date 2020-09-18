@@ -13,6 +13,10 @@ export class Scene {
     return this.outlines;
   }
 
+  getCamera() {
+    return this.camera;
+  }
+
   setCamera(camera: Camera) {
     this.camera = camera;
   }
