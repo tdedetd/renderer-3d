@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Render 3D</title>
-  <link rel="stylesheet" href="./style.scss">
-</head>
-<body>
-  <canvas id="canvas"></canvas>
-  <script src="./app/index.ts" type="text/javascript"></script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Render 3D</title>
+    <link rel="stylesheet" href="./style.scss">
+  </head>
+  <body>
+
+    <div class="container">
+      <canvas id="canvas"></canvas>
+      <div class="tools">
+        <div>
+          Camera position
+          <input type="number" class="input-number" id="input-position-x" placeholder="x">
+          <input type="number" class="input-number" id="input-position-y" placeholder="y">
+          <input type="number" class="input-number" id="input-position-z" placeholder="z">
+        </div>
+        <div>
+          Camera rotation
+          <input type="number" class="input-number" id="input-rotation-y" placeholder="y">
+          <input type="number" class="input-number" id="input-rotation-z" placeholder="z">
+        </div>
+        <div>
+          FOV
+          <input type="number" class="input-number" id="input-fov">
+        </div>
+        <div>
+          <button id="button-draw">Draw</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./app/index.ts" type="text/javascript"></script>
+  </body>
 </html>

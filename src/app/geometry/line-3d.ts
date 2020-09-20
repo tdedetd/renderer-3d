@@ -1,4 +1,4 @@
-import { Point3d } from "./point-3d";
+import { Point3d } from './point-3d';
 
 export class Line3d {
 

@@ -1,4 +1,4 @@
-import { SquareMatrix } from "./square-matrix";
+import { SquareMatrix } from './square-matrix';
 
 export class Matrix3x3 extends SquareMatrix {
 

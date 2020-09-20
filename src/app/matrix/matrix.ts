@@ -1,4 +1,4 @@
-import { MatrixError } from "../errors";
+import { MatrixError } from '../errors';
 import { listUtils } from '../utils';
 
 export class Matrix {

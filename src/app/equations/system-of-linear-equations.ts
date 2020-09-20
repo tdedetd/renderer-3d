@@ -1,4 +1,4 @@
-import { LinearEquation } from "./linear-equation";
+import { LinearEquation } from './linear-equation';
 import { listUtils } from '../utils';
 import { EquationError } from '../errors';
 import { Matrix3x3, SquareMatrix } from '../matrix';

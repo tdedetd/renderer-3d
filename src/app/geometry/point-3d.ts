@@ -1,4 +1,4 @@
-import { PointSpherical } from "./point-spherical";
+import { PointSpherical } from './point-spherical';
 
 export class Point3d {
 

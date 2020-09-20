@@ -12,7 +12,12 @@ export class Renderer {
   }
 
   public draw() {
+    this.screen.clear();
     this.drawOutlines();
+  }
+
+  public getCamera() {
+    return this.scene.getCamera();
   }
 
   private drawOutlines() {

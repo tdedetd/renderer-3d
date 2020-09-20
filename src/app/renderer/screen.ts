@@ -20,6 +20,11 @@ export class Screen {
     this.context = this.canvasEl.getContext('2d');
   }
 
+  public clear() {
+    this.context.fillStyle = '#eeeeee';
+    this.context.fillRect(0, 0, this.width, this.height);
+  }
+
   public drawLine(point1: Point, point2: Point) {
     this.context.beginPath();
     this.context.moveTo(point1.x, point1.y);
