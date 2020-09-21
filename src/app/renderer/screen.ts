@@ -1,6 +1,7 @@
 import { Point } from '../geometry';
 import { RendererError } from '../errors';
 import { Resolution } from '../resolution';
+import { Color } from './color';
 
 export class Screen {
 
@@ -31,5 +32,10 @@ export class Screen {
     this.context.moveTo(point1.x, point1.y);
     this.context.lineTo(point2.x, point2.y);
     this.context.stroke();
+  }
+
+  public drawPixel(x: number, y: number, color: Color) {
+    this.context.fillStyle = color.toString();
+    this.context.fillRect(x, y, 1, 1);
   }
 }

@@ -15,7 +15,8 @@ export function init(renderer: Renderer) {
       y: <HTMLInputElement>byId('input-rotation-y'),
       z: <HTMLInputElement>byId('input-rotation-z')
     },
-    fov: <HTMLInputElement>byId('input-fov')
+    fov: <HTMLInputElement>byId('input-fov'),
+    time: <HTMLDivElement>byId('div-time')
   };
 
   form.position.x.value = String(camera.position.x);
@@ -29,12 +30,16 @@ export function init(renderer: Renderer) {
     camera.position = new Point3d(+form.position.x.value, +form.position.y.value, +form.position.z.value);
     camera.rotation = new Rotation(0, +form.rotation.y.value, +form.rotation.z.value);
     camera.fov = +form.fov.value;
-    renderer.render();
+    updateTime(form.time, renderer.render());
   });
 
-  renderer.render();
+  updateTime(form.time, renderer.render());
 }
 
 function byId(id: string) {
   return document.getElementById(id);
+}
+
+function updateTime(element: HTMLDivElement, time: number) {
+  element.innerText = (time / 1000).toFixed(3) + ' s';
 }
