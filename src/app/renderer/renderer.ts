@@ -1,7 +1,8 @@
-import { Scene, Camera } from '../scene';
+import { Scene, Camera, Mesh } from '../scene';
 import { Screen } from './screen';
 import { Resolution } from '../resolution';
 import { Color } from './color';
+import { RendererError } from '../errors';
 
 export class Renderer {
   private background: string;
@@ -9,12 +10,17 @@ export class Renderer {
   private resolution: Resolution;
   private scene: Scene;
   private screen: Screen;
+  private meshes: Mesh[];
 
   constructor(scene: Scene, canvasId: string, camera: Camera, resolution: Resolution) {
     this.camera = camera;
     this.scene = scene;
     this.screen = new Screen(canvasId, resolution, '#eeeeee');
     this.resolution = resolution;
+  }
+
+  public init() {
+    this.meshes = this.scene.getMeshes();
   }
 
   public getCamera() {
@@ -25,6 +31,8 @@ export class Renderer {
    * @returns time of rendering in miliseconds
    */
   public render(): number {
+
+    if (!this.meshes) throw new RendererError('Renderer is not initialized');
 
     const t0 = performance.now();
     const rays = this.camera.getRays(this.resolution.width, this.resolution.height);

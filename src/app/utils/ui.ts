@@ -26,6 +26,7 @@ export function init(renderer: Renderer) {
   form.rotation.z.value = String(camera.rotation.z);
   form.fov.value = String(camera.fov);
 
+  renderer.init();
   byId('button-draw').addEventListener('click', () => {
     camera.position = new Point3d(+form.position.x.value, +form.position.y.value, +form.position.z.value);
     camera.rotation = new Rotation(0, +form.rotation.y.value, +form.rotation.z.value);
