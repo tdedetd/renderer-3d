@@ -14,6 +14,6 @@ export class Scene {
   }
 
   public addObjects(...objects: SceneObject[]) {
-    objects.push(...objects);
+    this.objects.push(...objects);
   }
 }

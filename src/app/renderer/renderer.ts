@@ -1,10 +1,10 @@
 import { Scene, Camera, Mesh } from '../scene';
 import { Screen } from './screen';
 import { Resolution } from '../resolution';
-import { Color } from './color';
 import { RendererError } from '../errors';
 import { Line3d, Point3d } from '../geometry';
 import { Intercection } from './intercection';
+import { SystemOfLinearEquations } from '../equations';
 
 export class Renderer {
   private background: string;
@@ -52,6 +52,7 @@ export class Renderer {
 
   private getPixel(ray: Line3d) {
     let closestIntercection: Intercection = null;
+
     this.meshes.forEach(mesh => {
       const intercection = this.getIntercection(ray, mesh);
       if (intercection && (!closestIntercection || intercection.distance < closestIntercection.distance)) {
@@ -63,6 +64,20 @@ export class Renderer {
   }
 
   private getIntercection(ray: Line3d, mesh: Mesh): Intercection {
-    return null;
+
+    const equationSystem = new SystemOfLinearEquations([
+      ...ray.getEquations(), mesh.triangle.getPlaneEquation()
+    ]);
+    const intersectionPoint = this.getIntercectionPoint(equationSystem);
+    if (!intersectionPoint) return null;
+
+    return new Intercection(mesh, intersectionPoint,
+                            new Line3d(intersectionPoint, this.camera.position).getLength());
+  }
+
+  private getIntercectionPoint(equationSystem: SystemOfLinearEquations): Point3d {
+    const solution = equationSystem.getSolution();
+    if (!solution) return null;
+    return new Point3d(solution[0], solution[1], solution[2]);
   }
 }

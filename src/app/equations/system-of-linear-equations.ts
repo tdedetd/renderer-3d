@@ -20,6 +20,9 @@ export class SystemOfLinearEquations {
     this.MatrixClass = numbersOfCoefficients.length === 3 ? Matrix3x3 : SquareMatrix;
   }
 
+  /**
+   * Returns null, if system has no solutions
+   */
   public getSolution(): number[] {
     // by Cramer's rule
 
