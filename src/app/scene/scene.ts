@@ -1,8 +1,10 @@
 import { SceneObject } from "./scene-object";
 import { Mesh } from "./mesh";
+import { Color } from "../renderer";
 
 export class Scene {
 
+  public readonly backgroundColor: Color = new Color(0, 0, 0);
   private objects: SceneObject[] = [];
 
   public getMeshes(): Mesh[] {

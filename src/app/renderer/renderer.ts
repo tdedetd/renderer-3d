@@ -3,6 +3,8 @@ import { Screen } from './screen';
 import { Resolution } from '../resolution';
 import { Color } from './color';
 import { RendererError } from '../errors';
+import { Line3d, Point3d } from '../geometry';
+import { Intercection } from './intercection';
 
 export class Renderer {
   private background: string;
@@ -41,10 +43,26 @@ export class Renderer {
 
     for (let y = 0; y < this.resolution.height; y++) {
       for (let x = 0; x < this.resolution.width; x++) {
-        this.screen.drawPixel(x, y, new Color(0, 0, 0));
+        this.screen.drawPixel(x, y, this.getPixel(rays[y][x]));
       }
     }
 
     return performance.now() - t0;
+  }
+
+  private getPixel(ray: Line3d) {
+    let closestIntercection: Intercection = null;
+    this.meshes.forEach(mesh => {
+      const intercection = this.getIntercection(ray, mesh);
+      if (intercection && (!closestIntercection || intercection.distance < closestIntercection.distance)) {
+        closestIntercection = intercection;
+      }
+    });
+
+    return closestIntercection ? closestIntercection.mesh.color : this.scene.backgroundColor;
+  }
+
+  private getIntercection(ray: Line3d, mesh: Mesh): Intercection {
+    return null;
   }
 }
