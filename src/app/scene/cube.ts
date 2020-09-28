@@ -21,7 +21,7 @@ export class Cube implements SceneObject {
 
     [-45, 45].forEach(vAngle => {
       for (let hAngle = 45; hAngle < 360; hAngle += 90) {
-        vertices.push(new PointSpherical(diagonal, hAngle, vAngle).toCartesian(this.position));
+        vertices.push(new PointSpherical(diagonal, vAngle, hAngle).toCartesian(this.position));
       }
     });
 

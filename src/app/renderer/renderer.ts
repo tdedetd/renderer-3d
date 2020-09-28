@@ -60,7 +60,8 @@ export class Renderer {
       }
     });
 
-    return closestIntercection ? closestIntercection.mesh.color : this.scene.backgroundColor;
+    if (!closestIntercection || closestIntercection.distance > this.camera.distance) return this.scene.backgroundColor;
+    return closestIntercection.mesh.color.mix(this.scene.backgroundColor, closestIntercection.distance / this.camera.distance);
   }
 
   private getIntercection(ray: Line3d, mesh: Mesh): Intercection {
@@ -69,7 +70,7 @@ export class Renderer {
       ...ray.getEquations(), mesh.triangle.getPlaneEquation()
     ]);
     const intersectionPoint = this.getIntercectionPoint(equationSystem);
-    if (!intersectionPoint) return null;
+    if (!intersectionPoint || !mesh.triangle.pointInside(intersectionPoint)) return null;
 
     return new Intercection(mesh, intersectionPoint,
                             new Line3d(intersectionPoint, this.camera.position).getLength());

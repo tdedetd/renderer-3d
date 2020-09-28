@@ -1,6 +1,6 @@
 import { Color, Renderer } from './renderer';
 import { Scene, Camera, Rotation, Cube } from './scene';
-import { Line3d, Point3d } from './geometry';
+import { Point3d } from './geometry';
 import { uiUtils } from './utils';
 import { Resolution } from './resolution';
 
@@ -15,12 +15,8 @@ scene.addObjects(
 );
 
 const camera = new Camera();
-camera.position = new Point3d(8, 8, 8);
-camera.rotation = new Rotation(0, -45, 225);
-
-const line = new Line3d(
-  new Point3d(2, 3, 10),
-  new Point3d(4, 4, -10)
-);
+camera.position = new Point3d(-8, -8, 8);
+camera.rotation = new Rotation(0, 36, 45);
+camera.distance = 30;
 
 uiUtils.init(new Renderer(scene, 'canvas', camera, new Resolution(320, 240)));

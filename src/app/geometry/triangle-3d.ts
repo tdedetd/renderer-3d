@@ -1,5 +1,6 @@
 import { Point3d } from "./point-3d";
 import { LinearEquation } from '../equations';
+import { Vector } from "./vector-3d";
 
 export class Triangle3d {
 
@@ -29,5 +30,15 @@ export class Triangle3d {
                      z0 * (dx2 * dy1 - dx1 * dy2);
 
     return new LinearEquation([coefX, coefY, coefZ], constant);
+  }
+
+  public pointInside(point: Point3d): boolean {
+    const vector1 = new Vector(this.point1.subtract(point));
+    const vector2 = new Vector(this.point2.subtract(point));
+    const vector3 = new Vector(this.point3.subtract(point));
+
+    let angle = vector1.getAngle(vector2) + vector2.getAngle(vector3) + vector3.getAngle(vector1);
+
+    return angle >= 360;
   }
 }
