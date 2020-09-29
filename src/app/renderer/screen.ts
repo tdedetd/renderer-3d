@@ -8,9 +8,9 @@ export class Screen {
   private readonly background: string;
   private readonly canvasEl: HTMLCanvasElement;
   private readonly context: CanvasRenderingContext2D;
-  private readonly resolution: Resolution;
+  public resolution: Resolution;
 
-  constructor(id: string, resolution: Resolution, background: string) {
+  constructor(id: string, resolution: Resolution, background: string = 'black') {
     this.resolution = resolution;
     this.background = background;
     this.canvasEl = <HTMLCanvasElement>document.getElementById(id);
@@ -18,7 +18,6 @@ export class Screen {
 
     this.canvasEl.width = resolution.width;
     this.canvasEl.height = resolution.height;
-
     this.context = this.canvasEl.getContext('2d');
   }
 

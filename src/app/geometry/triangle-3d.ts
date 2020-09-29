@@ -39,6 +39,6 @@ export class Triangle3d {
 
     let angle = vector1.getAngle(vector2) + vector2.getAngle(vector3) + vector3.getAngle(vector1);
 
-    return angle >= 360;
+    return angle >= 359.99999999;
   }
 }

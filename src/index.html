@@ -11,25 +11,39 @@
     <div class="container">
       <canvas id="canvas"></canvas>
       <div class="tools">
-        <div>
+        <div class="tools__item">
           Camera position
           <input type="number" class="input-number" id="input-position-x" placeholder="x">
           <input type="number" class="input-number" id="input-position-y" placeholder="y">
           <input type="number" class="input-number" id="input-position-z" placeholder="z">
         </div>
-        <div>
+        <div class="tools__item">
           Camera rotation
           <input type="number" class="input-number" id="input-rotation-y" placeholder="y">
           <input type="number" class="input-number" id="input-rotation-z" placeholder="z">
         </div>
-        <div>
+        <div class="tools__item">
           FOV
           <input type="number" class="input-number" id="input-fov">
         </div>
-        <div>
-          <button id="button-draw">Draw</button>
+        <div class="tools__item">
+          Distance
+          <input type="number" class="input-number" id="input-distance">
         </div>
-        <div id="div-time"></div>
+        <div class="tools__item">
+          Resolution
+          <input type="number" class="input-number" id="input-width"> x
+          <input type="number" class="input-number" id="input-height" disabled>
+        </div>
+        <div class="tools__item">
+          <button class="btn" id="button-draw">Draw</button>
+        </div>
+        <div class="footer">
+          <div id="div-time"></div>
+          <div>
+            <a href="https://github.com/tdedetd/renderer-3d/tree/b-raycasting" target="_blank">Github</a>
+          </div>
+        </div>
       </div>
     </div>
 

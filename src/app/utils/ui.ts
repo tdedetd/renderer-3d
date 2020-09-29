@@ -1,9 +1,11 @@
 import { Renderer } from '../renderer';
 import { Point3d } from '../geometry';
 import { Rotation } from '../scene/rotation';
+import { Resolution } from '../resolution';
 
 export function init(renderer: Renderer) {
   const camera = renderer.getCamera();
+  const button = byId('button-draw');
 
   const form = {
     position: {
@@ -16,7 +18,12 @@ export function init(renderer: Renderer) {
       z: <HTMLInputElement>byId('input-rotation-z')
     },
     fov: <HTMLInputElement>byId('input-fov'),
-    time: <HTMLDivElement>byId('div-time')
+    distance: <HTMLInputElement>byId('input-distance'),
+    time: <HTMLDivElement>byId('div-time'),
+    resolution: {
+      width: <HTMLInputElement>byId('input-width'),
+      height: <HTMLInputElement>byId('input-height')
+    }
   };
 
   form.position.x.value = String(camera.position.x);
@@ -25,16 +32,24 @@ export function init(renderer: Renderer) {
   form.rotation.y.value = String(camera.rotation.y);
   form.rotation.z.value = String(camera.rotation.z);
   form.fov.value = String(camera.fov);
+  form.distance.value = String(camera.distance);
+  form.resolution.width.value = String(320);
+  form.resolution.height.value = String(240);
 
   renderer.init();
-  byId('button-draw').addEventListener('click', () => {
+  button.addEventListener('click', () => {
     camera.position = new Point3d(+form.position.x.value, +form.position.y.value, +form.position.z.value);
     camera.rotation = new Rotation(0, +form.rotation.y.value, +form.rotation.z.value);
     camera.fov = +form.fov.value;
-    updateTime(form.time, renderer.render());
+    camera.distance = +form.distance.value;
+    updateTime(form.time, renderer.render(new Resolution(+form.resolution.width.value, +form.resolution.height.value)));
   });
 
-  updateTime(form.time, renderer.render());
+  form.resolution.width.addEventListener('change', () => {
+    form.resolution.height.value = String(+form.resolution.width.value * 3 / 4);
+  });
+
+  updateTime(form.time, renderer.render(new Resolution(+form.resolution.width.value, +form.resolution.height.value)));
 }
 
 function byId(id: string) {

@@ -7,18 +7,16 @@ import { Intercection } from './intercection';
 import { SystemOfLinearEquations } from '../equations';
 
 export class Renderer {
-  private background: string;
   private camera: Camera;
-  private resolution: Resolution;
   private scene: Scene;
   private screen: Screen;
   private meshes: Mesh[];
+  private canvasId: string;
 
-  constructor(scene: Scene, canvasId: string, camera: Camera, resolution: Resolution) {
+  constructor(scene: Scene, canvasId: string, camera: Camera) {
     this.camera = camera;
     this.scene = scene;
-    this.screen = new Screen(canvasId, resolution, '#eeeeee');
-    this.resolution = resolution;
+    this.canvasId = canvasId;
   }
 
   public init() {
@@ -32,17 +30,17 @@ export class Renderer {
   /**
    * @returns time of rendering in miliseconds
    */
-  public render(): number {
+  public render(resolution: Resolution): number {
 
     if (!this.meshes) throw new RendererError('Renderer is not initialized');
 
     const t0 = performance.now();
-    const rays = this.camera.getRays(this.resolution.width, this.resolution.height);
+    const rays = this.camera.getRays(resolution.width, resolution.height);
 
-    this.screen.clear();
+    this.screen = new Screen(this.canvasId, resolution);
 
-    for (let y = 0; y < this.resolution.height; y++) {
-      for (let x = 0; x < this.resolution.width; x++) {
+    for (let y = 0; y < resolution.height; y++) {
+      for (let x = 0; x < resolution.width; x++) {
         this.screen.drawPixel(x, y, this.getPixel(rays[y][x]));
       }
     }
