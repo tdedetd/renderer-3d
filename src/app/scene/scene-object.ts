@@ -1,11 +1,7 @@
-import { Rotation } from "./rotation";
 import { Mesh } from './mesh';
-import { Point3d } from "../geometry";
-import { Material } from "./material";
+import { ObjectProperties } from "./object-properties";
 
 export interface SceneObject {
-  material: Material;
-  position: Point3d;
-  rotation: Rotation;
+  properties: ObjectProperties;
   getMeshes(): Mesh[];
 }
