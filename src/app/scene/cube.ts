@@ -1,12 +1,12 @@
 import { SceneObject } from "./scene-object";
 import { Rotation } from "./rotation";
 import { Mesh } from "./mesh";
-import { Color } from "../renderer";
 import { Point3d, PointSpherical, Triangle3d } from "../geometry";
+import { Material } from "./material";
 
 export class Cube implements SceneObject {
 
-  constructor(public color: Color,
+  constructor(public material: Material,
               public position: Point3d,
               public rotation: Rotation,
               public width: number) {}
@@ -26,18 +26,18 @@ export class Cube implements SceneObject {
     });
 
     meshes.push(
-      new Mesh(new Triangle3d(vertices[3], vertices[7], vertices[4]), this.color),
-      new Mesh(new Triangle3d(vertices[3], vertices[0], vertices[4]), this.color),
-      new Mesh(new Triangle3d(vertices[0], vertices[4], vertices[5]), this.color),
-      new Mesh(new Triangle3d(vertices[0], vertices[1], vertices[5]), this.color),
-      new Mesh(new Triangle3d(vertices[1], vertices[5], vertices[6]), this.color),
-      new Mesh(new Triangle3d(vertices[1], vertices[2], vertices[6]), this.color),
-      new Mesh(new Triangle3d(vertices[2], vertices[6], vertices[7]), this.color),
-      new Mesh(new Triangle3d(vertices[2], vertices[3], vertices[7]), this.color),
-      new Mesh(new Triangle3d(vertices[0], vertices[1], vertices[2]), this.color),
-      new Mesh(new Triangle3d(vertices[0], vertices[3], vertices[2]), this.color),
-      new Mesh(new Triangle3d(vertices[5], vertices[6], vertices[7]), this.color),
-      new Mesh(new Triangle3d(vertices[5], vertices[4], vertices[7]), this.color)
+      new Mesh(new Triangle3d(vertices[3], vertices[7], vertices[4]), this.material),
+      new Mesh(new Triangle3d(vertices[3], vertices[0], vertices[4]), this.material),
+      new Mesh(new Triangle3d(vertices[0], vertices[4], vertices[5]), this.material),
+      new Mesh(new Triangle3d(vertices[0], vertices[1], vertices[5]), this.material),
+      new Mesh(new Triangle3d(vertices[1], vertices[5], vertices[6]), this.material),
+      new Mesh(new Triangle3d(vertices[1], vertices[2], vertices[6]), this.material),
+      new Mesh(new Triangle3d(vertices[2], vertices[6], vertices[7]), this.material),
+      new Mesh(new Triangle3d(vertices[2], vertices[3], vertices[7]), this.material),
+      new Mesh(new Triangle3d(vertices[0], vertices[1], vertices[2]), this.material),
+      new Mesh(new Triangle3d(vertices[0], vertices[3], vertices[2]), this.material),
+      new Mesh(new Triangle3d(vertices[5], vertices[6], vertices[7]), this.material),
+      new Mesh(new Triangle3d(vertices[5], vertices[4], vertices[7]), this.material)
     );
 
     return meshes;

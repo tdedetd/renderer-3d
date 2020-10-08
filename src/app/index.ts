@@ -8,19 +8,19 @@ const ROTATION = new Rotation(0, 0, 0);
 const scene = new Scene();
 scene.addObjects(
   new Cube(
-    new Color(64, 64, 255),
+    { color: new Color(64, 64, 255) },
     new Point3d(0, 0, 0),
     ROTATION,
     5
   ),
   new Cube(
-    new Color(255, 0, 0),
+    { color: new Color(255, 0, 0) },
     new Point3d(-2, 4, -1),
     ROTATION,
     3
   ),
   new Cube(
-    new Color(255, 255, 128),
+    { color: new Color(255, 255, 128) },
     new Point3d(0, 0, -65),
     ROTATION,
     100

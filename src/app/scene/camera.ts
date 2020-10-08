@@ -13,15 +13,12 @@ export class Camera {
     const rays: Line3d[][] = [];
     const vfov = this.getVerticalFov(width, height);
 
-    const startAngleZ = this.rotation.z - this.fov / 2 + this.fov / 2 / width;
-    const startAngleY = this.rotation.y - vfov / 2 + vfov / 2 / height;
-
     for (let y = 0; y < height; y++) {
-      const angleY = startAngleY + this.getAngle(y, height, vfov);
+      const angleY = this.rotation.y + this.getAngle(y, height, vfov);
 
       const lines: Line3d[] = [];
       for (let x = 0; x < width; x++) {
-        const angleZ = startAngleZ + this.getAngle(x, width, this.fov);
+        const angleZ = this.rotation.z + this.getAngle(x, width, this.fov);
         const pointSpherical = new PointSpherical(this.distance, angleY, angleZ);
         lines.push(new Line3d(this.position, pointSpherical.toCartesian(this.position)));
       }
@@ -49,6 +46,7 @@ export class Camera {
   }
 
   private getAngle(coord: number, length: number, fov: number): number {
-    return fov * coord / length;
+    const relatioanlCoord = coord - Math.floor(length / 2);
+    return fov * relatioanlCoord / length + fov / 2 / length;
   }
 }

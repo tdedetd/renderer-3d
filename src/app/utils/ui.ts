@@ -33,8 +33,8 @@ export function init(renderer: Renderer) {
   form.rotation.z.value = String(camera.rotation.z);
   form.fov.value = String(camera.fov);
   form.distance.value = String(camera.distance);
-  form.resolution.width.value = String(320);
-  form.resolution.height.value = String(240);
+  form.resolution.width.value = String(160);
+  form.resolution.height.value = String(120);
 
   renderer.init();
   button.addEventListener('click', () => {

@@ -1,10 +1,10 @@
 import { Rotation } from "./rotation";
 import { Mesh } from './mesh';
-import { Color } from "../renderer";
 import { Point3d } from "../geometry";
+import { Material } from "./material";
 
 export interface SceneObject {
-  color: Color;
+  material: Material;
   position: Point3d;
   rotation: Rotation;
   getMeshes(): Mesh[];
