@@ -59,7 +59,7 @@ export class Renderer {
     });
 
     if (!closestIntercection || closestIntercection.distance > this.camera.distance) return this.scene.backgroundColor;
-    return closestIntercection.mesh.color.mix(this.scene.backgroundColor, closestIntercection.distance / this.camera.distance);
+    return closestIntercection.mesh.material.color.mix(this.scene.backgroundColor, closestIntercection.distance / this.camera.distance);
   }
 
   private getIntercection(ray: Line3d, mesh: Mesh): Intercection {
