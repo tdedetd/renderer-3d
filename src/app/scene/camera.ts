@@ -8,17 +8,18 @@ export class Camera {
   public rotation: Rotation = new Rotation(0, 0, 0);
   public fov: number = 90;
   public distance: number = 100;
+  private screenDistance = 10;
 
   public getRays(width: number, height: number): Line3d[][] {
     const rays: Line3d[][] = [];
     const vfov = this.getVerticalFov(width, height);
 
     for (let y = 0; y < height; y++) {
-      const angleY = this.rotation.y + this.getAngle(y, height, vfov);
+      const angleY = this.rotation.y + this.getAngleNew(y, height, vfov);
 
       const lines: Line3d[] = [];
       for (let x = 0; x < width; x++) {
-        const angleZ = this.rotation.z + this.getAngle(x, width, this.fov);
+        const angleZ = this.rotation.z + this.getAngleNew(x, width, this.fov);
         const pointSpherical = new PointSpherical(this.distance, angleY, angleZ);
         lines.push(new Line3d(this.position, pointSpherical.toCartesian(this.position)));
       }
@@ -45,8 +46,19 @@ export class Camera {
     return vFovRad * 180 / Math.PI;
   }
 
+  /** @deprecated */
   private getAngle(coord: number, length: number, fov: number): number {
     const relatioanlCoord = coord - Math.floor(length / 2);
     return fov * relatioanlCoord / length + fov / 2 / length;
+  }
+
+  private getAngleNew(screenCoord: number, screenLength: number, fov: number): number {
+    const relationalCoord = screenCoord - Math.floor(screenLength / 2);
+    const screenDistanceToCoord = Math.abs(relationalCoord) - 0.5 + (relationalCoord >= 0 ? 1 : 0);
+    const globalLength = this.screenDistance * Math.tan((fov / 2) * Math.PI / 180);
+    const globalDistanceToCoord = globalLength * screenDistanceToCoord / (screenLength / 2);
+    const angle = Math.atan((globalDistanceToCoord / this.screenDistance)) * 180 / Math.PI;
+
+    return relationalCoord >= 0 ? angle : -angle;
   }
 }

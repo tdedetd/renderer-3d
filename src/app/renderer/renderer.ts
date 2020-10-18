@@ -4,14 +4,19 @@ import { Resolution } from '../resolution';
 import { RendererError } from '../errors';
 import { Line3d, Point3d } from '../geometry';
 import { Intercection } from './intercection';
-import { SystemOfLinearEquations } from '../equations';
+import { LinearEquation, SystemOfLinearEquations } from '../equations';
+
+class MeshEquation {
+  mesh: Mesh;
+  equation: LinearEquation;
+}
 
 export class Renderer {
   private camera: Camera;
   private scene: Scene;
   private screen: Screen;
-  private meshes: Mesh[];
   private canvasId: string;
+  private meshEquations: MeshEquation[];
 
   constructor(scene: Scene, canvasId: string, camera: Camera) {
     this.camera = camera;
@@ -20,7 +25,10 @@ export class Renderer {
   }
 
   public init() {
-    this.meshes = this.scene.getMeshes();
+    this.meshEquations = [];
+    this.scene.getMeshes().forEach(mesh => {
+      this.meshEquations.push({ mesh, equation: mesh.triangle.getPlaneEquation() });
+    });
   }
 
   public getCamera() {
@@ -32,7 +40,7 @@ export class Renderer {
    */
   public render(resolution: Resolution): number {
 
-    if (!this.meshes) throw new RendererError('Renderer is not initialized');
+    if (!this.meshEquations) throw new RendererError('Renderer is not initialized');
 
     const t0 = performance.now();
     const rays = this.camera.getRays(resolution.width, resolution.height);
@@ -51,8 +59,8 @@ export class Renderer {
   private getPixel(ray: Line3d) {
     let closestIntercection: Intercection = null;
 
-    this.meshes.forEach(mesh => {
-      const intercection = this.getIntercection(ray, mesh);
+    this.meshEquations.forEach(meshEquation => {
+      const intercection = this.getIntercection(ray, meshEquation);
       if (intercection && (!closestIntercection || intercection.distance < closestIntercection.distance)) {
         closestIntercection = intercection;
       }
@@ -62,13 +70,17 @@ export class Renderer {
     return closestIntercection.mesh.material.color.mix(this.scene.backgroundColor, closestIntercection.distance / this.camera.distance);
   }
 
-  private getIntercection(ray: Line3d, mesh: Mesh): Intercection {
+  private getIntercection(ray: Line3d, meshEquation: MeshEquation): Intercection {
 
+    const { mesh, equation } = meshEquation;
     const equationSystem = new SystemOfLinearEquations([
-      ...ray.getEquations(), mesh.triangle.getPlaneEquation()
+      ...ray.getEquations(), equation
     ]);
     const intersectionPoint = this.getIntercectionPoint(equationSystem);
     if (!intersectionPoint || !mesh.triangle.pointInside(intersectionPoint)) return null;
+
+    const inInterval = intersectionPoint.x > ray.point1.x && intersectionPoint.x < ray.point2.x || intersectionPoint.x > ray.point2.x && intersectionPoint.x < ray.point1.x;
+    if (!inInterval) return null;
 
     return new Intercection(mesh, intersectionPoint,
                             new Line3d(intersectionPoint, this.camera.position).getLength());

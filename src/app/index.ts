@@ -8,7 +8,7 @@ const ROTATION = new Rotation(0, 0, 0);
 const scene = new Scene();
 scene.addObjects(
   new Cube({
-    position: new Point3d(0, 0, 0),
+    position: new Point3d(0, 0, 2.5),
     rotation: ROTATION,
     material: {
       color: new Color(64, 64, 255)
@@ -16,7 +16,7 @@ scene.addObjects(
     width: 5
   }),
   new Cube({
-    position: new Point3d(-2, 4, -1),
+    position: new Point3d(-2, 4, 1.5),
     rotation: ROTATION,
     material: {
       color: new Color(255, 0, 0)
@@ -24,7 +24,7 @@ scene.addObjects(
     width: 3
   }),
   new Cube({
-    position: new Point3d(0, 0, -65),
+    position: new Point3d(0, 0, -50),
     rotation: ROTATION,
     material: {
       color: new Color(255, 255, 128)
@@ -35,7 +35,7 @@ scene.addObjects(
 
 const camera = new Camera();
 camera.position = new Point3d(-7, -3, 8);
-camera.rotation = new Rotation(0, 42, 35);
+camera.rotation = new Rotation(0, 37, 35);
 camera.distance = 20;
 
 uiUtils.init(new Renderer(scene, 'canvas', camera));

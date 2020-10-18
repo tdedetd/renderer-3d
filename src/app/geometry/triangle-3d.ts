@@ -32,6 +32,9 @@ export class Triangle3d {
     return new LinearEquation([coefX, coefY, coefZ], constant);
   }
 
+  /**
+   * Is guaranteed, that the point is on triangle plane
+   */
   public pointInside(point: Point3d): boolean {
     const vector1 = new Vector(this.point1.subtract(point));
     const vector2 = new Vector(this.point2.subtract(point));
@@ -39,6 +42,6 @@ export class Triangle3d {
 
     let angle = vector1.getAngle(vector2) + vector2.getAngle(vector3) + vector3.getAngle(vector1);
 
-    return angle >= 359.99999999;
+    return angle >= 359.999999;
   }
 }
