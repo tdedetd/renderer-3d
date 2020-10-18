@@ -79,6 +79,9 @@ export class Renderer {
     const intersectionPoint = this.getIntercectionPoint(equationSystem);
     if (!intersectionPoint || !mesh.triangle.pointInside(intersectionPoint)) return null;
 
+    const inInterval = intersectionPoint.x > ray.point1.x && intersectionPoint.x < ray.point2.x || intersectionPoint.x > ray.point2.x && intersectionPoint.x < ray.point1.x;
+    if (!inInterval) return null;
+
     return new Intercection(mesh, intersectionPoint,
                             new Line3d(intersectionPoint, this.camera.position).getLength());
   }
