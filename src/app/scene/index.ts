@@ -1,6 +1,6 @@
 export * from './angle-range';
 export * from './camera';
-export * from './cube';
+export * from './objects';
 export * from './material';
 export * from './mesh';
 export * from './rotation';

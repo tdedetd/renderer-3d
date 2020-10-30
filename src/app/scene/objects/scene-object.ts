@@ -1,5 +1,5 @@
-import { Mesh } from './mesh';
-import { ObjectProperties } from "./object-properties";
+import { Mesh } from '../mesh';
+import { ObjectProperties } from "../object-properties";
 
 export interface SceneObject {
   properties: ObjectProperties;

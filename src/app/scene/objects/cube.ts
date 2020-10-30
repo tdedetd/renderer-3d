@@ -1,7 +1,7 @@
 import { SceneObject } from "./scene-object";
-import { Mesh } from "./mesh";
-import { Point3d, PointSpherical, Triangle3d } from "../geometry";
-import { CubeProperties } from "./object-properties";
+import { Mesh } from "../mesh";
+import { Point3d, PointSpherical, Triangle3d } from "../../geometry";
+import { CubeProperties } from "../object-properties";
 
 const V_ANGLE = Math.atan(1 / Math.sqrt(2)) * 180 / Math.PI;
 
