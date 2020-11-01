@@ -36,7 +36,6 @@ export function init(renderer: Renderer) {
   form.resolution.width.value = String(160);
   form.resolution.height.value = String(120);
 
-  renderer.init();
   button.addEventListener('click', () => {
     camera.position = new Point3d(+form.position.x.value, +form.position.y.value, +form.position.z.value);
     camera.rotation = new Rotation(0, +form.rotation.y.value, +form.rotation.z.value);

@@ -1,15 +1,49 @@
-import { SceneObject } from "./scene-object";
 import { Mesh } from "../mesh";
-import { Point3d, PointSpherical, Triangle3d } from "../../geometry";
+import { Line3d, Point3d, PointSpherical, Triangle3d } from "../../geometry";
 import { CubeProperties } from "../object-properties";
+import { SystemOfLinearEquations } from "../../equations";
+import { Intercection } from "../../renderer/intercection";
+import { SceneObject } from ".";
 
 const V_ANGLE = Math.atan(1 / Math.sqrt(2)) * 180 / Math.PI;
 
 export class Cube implements SceneObject {
 
-  constructor(public properties: CubeProperties) {}
+  private meshes: Mesh[];
 
-  getMeshes(): Mesh[] {
+  constructor(public properties: CubeProperties) {
+    this.meshes = this.getMeshes();
+  }
+
+  getIntercections(ray: Line3d) {
+
+    const intercections: Intercection[] = [];
+
+    this.meshes.forEach(mesh => {
+      const equationSystem = new SystemOfLinearEquations([
+        ...ray.getEquations(), mesh.triangle.getPlaneEquation()
+      ]);
+
+      const point = this.getIntercectionPoint(equationSystem);
+      if (!point || !mesh.triangle.pointInside(point)) return;
+
+      const inInterval = point.x > ray.point1.x && point.x < ray.point2.x || point.x > ray.point2.x && point.x < ray.point1.x;
+      if (!inInterval) return;
+
+      intercections.push(new Intercection(mesh, point, new Line3d(point, ray.point1).getLength()));
+    });
+
+    return intercections;
+  }
+
+  // TODO: to get intercections with meshes class
+  private getIntercectionPoint(equationSystem: SystemOfLinearEquations): Point3d {
+    const solution = equationSystem.getSolution();
+    if (!solution) return null;
+    return new Point3d(solution[0], solution[1], solution[2]);
+  }
+
+  private getMeshes(): Mesh[] {
     const meshes: Mesh[] = [];
     const radius = 0.5 * this.properties.width / Math.sin(V_ANGLE * Math.PI / 180);
 
