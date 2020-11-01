@@ -49,7 +49,7 @@ export class Renderer {
 
     if (!closestIntercection) return this.scene.backgroundColor;
 
-    const color = closestIntercection.mesh.material.color;
+    const color = closestIntercection.material.color;
     return color.mix(this.scene.backgroundColor, closestIntercection.distance / this.camera.distance);
   }
 }

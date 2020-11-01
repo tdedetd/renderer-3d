@@ -1,9 +1,9 @@
 import { Point3d } from "../geometry";
-import { Mesh } from "../scene";
+import { Material } from "../scene";
 
 export class Intercection {
 
-  constructor(public readonly mesh: Mesh,
+  constructor(public readonly material: Material,
               public readonly point: Point3d,
               public readonly distance: number) {}
 }

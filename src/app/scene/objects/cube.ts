@@ -30,7 +30,7 @@ export class Cube implements SceneObject {
       const inInterval = point.x > ray.point1.x && point.x < ray.point2.x || point.x > ray.point2.x && point.x < ray.point1.x;
       if (!inInterval) return;
 
-      intercections.push(new Intercection(mesh, point, new Line3d(point, ray.point1).getLength()));
+      intercections.push(new Intercection(mesh.material, point, new Line3d(point, ray.point1).getLength()));
     });
 
     return intercections;
