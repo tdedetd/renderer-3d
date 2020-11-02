@@ -40,8 +40,7 @@ export class Triangle3d {
     const vector2 = new Vector(this.point2.subtract(point));
     const vector3 = new Vector(this.point3.subtract(point));
 
-    let angle = vector1.getAngle(vector2) + vector2.getAngle(vector3) + vector3.getAngle(vector1);
-
+    const angle = vector1.getAngle(vector2) + vector2.getAngle(vector3) + vector3.getAngle(vector1);
     return angle >= 359.999999;
   }
 }

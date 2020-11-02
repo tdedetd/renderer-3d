@@ -1,6 +1,5 @@
 import { Line3d, Point3d, PointSpherical } from '../geometry';
 import { Rotation } from './rotation';
-import { AngleRange } from './angle-range';
 
 export class Camera {
 
@@ -15,28 +14,17 @@ export class Camera {
     const vfov = this.getVerticalFov(width, height);
 
     for (let y = 0; y < height; y++) {
-      const angleY = this.rotation.y + this.getAngleNew(y, height, vfov);
+      const angleY = this.rotation.y + this.getAngle(y, height, vfov);
 
       const lines: Line3d[] = [];
       for (let x = 0; x < width; x++) {
-        const angleZ = this.rotation.z + this.getAngleNew(x, width, this.fov);
+        const angleZ = this.rotation.z + this.getAngle(x, width, this.fov);
         const pointSpherical = new PointSpherical(this.distance, angleY, angleZ);
         lines.push(new Line3d(this.position, pointSpherical.toCartesian(this.position)));
       }
       rays.push(lines);
     }
     return rays;
-  }
-
-  public getScreenBorders(width: number, height: number): AngleRange {
-    const vfov = this.getVerticalFov(width, height);
-    const zStart = this.rotation.z - this.fov / 2;
-    const yStart = this.rotation.y - vfov / 2;
-
-    return {
-      zStart, zEnd: zStart + this.fov,
-      yStart, yEnd: yStart + vfov
-    };
   }
 
   private getVerticalFov(width: number, height: number): number {
@@ -46,13 +34,7 @@ export class Camera {
     return vFovRad * 180 / Math.PI;
   }
 
-  /** @deprecated */
-  private getAngle(coord: number, length: number, fov: number): number {
-    const relatioanlCoord = coord - Math.floor(length / 2);
-    return fov * relatioanlCoord / length + fov / 2 / length;
-  }
-
-  private getAngleNew(screenCoord: number, screenLength: number, fov: number): number {
+  private getAngle(screenCoord: number, screenLength: number, fov: number): number {
     const relationalCoord = screenCoord - Math.floor(screenLength / 2);
     const screenDistanceToCoord = Math.abs(relationalCoord) - 0.5 + (relationalCoord >= 0 ? 1 : 0);
     const globalLength = this.screenDistance * Math.tan((fov / 2) * Math.PI / 180);
