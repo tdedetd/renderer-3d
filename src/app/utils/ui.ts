@@ -1,8 +1,9 @@
 import { Renderer } from '../renderer';
 import { Point3d } from '../geometry';
 import { Rotation } from '../scene/rotation';
-import { Resolution } from '../resolution';
+import { Resolution } from '../misc/resolution';
 
+// TODO: to object
 export function init(renderer: Renderer) {
   const camera = renderer.getCamera();
   const button = byId('button-draw');
@@ -33,8 +34,8 @@ export function init(renderer: Renderer) {
   form.rotation.z.value = String(camera.rotation.z);
   form.fov.value = String(camera.fov);
   form.distance.value = String(camera.distance);
-  form.resolution.width.value = String(320);
-  form.resolution.height.value = String(240);
+  form.resolution.width.value = String(camera.resolution.width);
+  form.resolution.height.value = String(camera.resolution.height);
 
   button.addEventListener('click', () => {
     camera.position = new Point3d(+form.position.x.value, +form.position.y.value, +form.position.z.value);

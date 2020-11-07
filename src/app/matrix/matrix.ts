@@ -5,7 +5,7 @@ export class Matrix {
 
   public columns: number;
   public rows: number;
-  protected values: number[][];
+  public readonly values: number[][];
 
   constructor(values: number[][]) {
     if (!values) throw new MatrixError('Matrix is empty');
