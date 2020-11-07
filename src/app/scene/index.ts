@@ -1,4 +1,3 @@
-export * from './angle-range';
 export * from './camera';
 export * from './objects';
 export * from './material';

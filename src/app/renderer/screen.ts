@@ -1,6 +1,6 @@
 import { Point } from '../geometry';
 import { RendererError } from '../errors';
-import { Resolution } from '../resolution';
+import { Resolution } from '../misc/resolution';
 import { Color } from './color';
 
 export class Screen {
