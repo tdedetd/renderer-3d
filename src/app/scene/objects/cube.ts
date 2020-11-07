@@ -1,7 +1,7 @@
 import { Mesh } from "../mesh";
 import { Line3d, Point3d, PointSpherical, Triangle3d } from "../../geometry";
 import { CubeProperties } from "../object-properties";
-import { SystemOfLinearEquations } from "../../equations";
+import { SystemOfLinearEquations3eq3Var } from "../../equations";
 import { Intercection } from "../../renderer/intercection";
 import { SceneObject } from ".";
 
@@ -20,7 +20,7 @@ export class Cube implements SceneObject {
     const intercections: Intercection[] = [];
 
     this.meshes.forEach(mesh => {
-      const equationSystem = new SystemOfLinearEquations([
+      const equationSystem = new SystemOfLinearEquations3eq3Var([
         ...ray.getEquations(), mesh.triangle.getPlaneEquation()
       ]);
 
@@ -37,7 +37,7 @@ export class Cube implements SceneObject {
   }
 
   // TODO: to get intercections with meshes class
-  private getIntercectionPoint(equationSystem: SystemOfLinearEquations): Point3d {
+  private getIntercectionPoint(equationSystem: SystemOfLinearEquations3eq3Var): Point3d {
     const solution = equationSystem.getSolution();
     if (!solution) return null;
     return new Point3d(solution[0], solution[1], solution[2]);
