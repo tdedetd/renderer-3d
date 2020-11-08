@@ -9,7 +9,7 @@ const ROTATION = new Rotation(0, 0, 0);
 const scene = new Scene();
 scene.addObjects(
   new Cube({
-    position: new Point3d(0, 0, 1.5),
+    position: new Point3d(0, 0, 2.5),
     rotation: ROTATION,
     material: {
       color: new Color(64, 64, 255)
@@ -35,8 +35,8 @@ scene.addObjects(
 );
 
 const camera = new Camera();
-camera.position = new Point3d(-7, -5, 5);
-camera.rotation = new Rotation(0, 10, 30);
+camera.position = new Point3d(-7, -5, 6);
+camera.rotation = new Rotation(0, 10, 29);
 camera.distance = 17;
 camera.resolution = new Resolution(160, 120);
 camera.fov = 80;
