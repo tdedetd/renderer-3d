@@ -1,5 +1,5 @@
 import { Line3d, Point3d } from '../geometry';
-import { Rotator } from '../misc/rotator';
+import { Rotator } from '../misc';
 import { Resolution } from '../misc/resolution';
 import { Rotation } from './rotation';
 

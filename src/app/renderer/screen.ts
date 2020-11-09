@@ -8,7 +8,7 @@ export class Screen {
   private readonly background: string;
   private readonly canvasEl: HTMLCanvasElement;
   private readonly context: CanvasRenderingContext2D;
-  public resolution: Resolution;
+  public readonly resolution: Resolution;
 
   constructor(id: string, resolution: Resolution, background: string = 'black') {
     this.resolution = resolution;
@@ -23,10 +23,13 @@ export class Screen {
 
   public clear() {
     this.context.fillStyle = this.background;
-    this.context.fillRect(0, 0, this.resolution.width, this.resolution.height);
+    this.context.clearRect(0, 0, this.resolution.width, this.resolution.height);
   }
 
-  public drawLine(point1: Point, point2: Point) {
+  public drawLine(point1: Point, point2: Point, color: Color, width = 1) {
+    this.context.strokeStyle = color.toString();
+    this.context.lineWidth = width;
+    this.context.lineCap = 'round';
     this.context.beginPath();
     this.context.moveTo(point1.x, point1.y);
     this.context.lineTo(point2.x, point2.y);

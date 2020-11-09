@@ -12,6 +12,26 @@ body {
   display: flex;
 }
 
+.canvas-container {
+  flex-shrink: 0;
+  position: relative;
+}
+
+#canvas {
+  width: 1024px;
+  height: 768px;
+  background: #eeeeee;
+}
+
+#axes {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 160px;
+  height: 120px;
+  background: transparent;
+}
+
 .tools {
   margin-left: 1em;
   flex-shrink: 0;
@@ -29,11 +49,4 @@ body {
 
 .tools__item {
   margin: .2em 0;
-}
-
-#canvas {
-  width: 1024px;
-  height: 768px;
-  background: #eeeeee;
-  flex-shrink: 0;
 }

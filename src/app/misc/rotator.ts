@@ -4,7 +4,9 @@ import { Rotation } from "../scene";
 
 export class Rotator {
 
-  constructor(public readonly pivot: Point3d) {}
+  constructor(public readonly pivot?: Point3d) {
+    if (!pivot) this.pivot = new Point3d(0, 0, 0);
+  }
 
   /**
    * Return point rotated by specific angles

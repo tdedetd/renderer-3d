@@ -1,4 +1,4 @@
-import { Renderer } from '../renderer';
+import { AxesRenderer, Renderer } from '../renderer';
 import { Point3d } from '../geometry';
 import { Rotation } from '../scene/rotation';
 import { Resolution } from '../misc/resolution';
@@ -7,6 +7,7 @@ import { Resolution } from '../misc/resolution';
 export function init(renderer: Renderer) {
   const camera = renderer.getCamera();
   const button = byId('button-draw');
+  const axesRenderer = new AxesRenderer('axes');
 
   const form = {
     position: {
@@ -47,6 +48,7 @@ export function init(renderer: Renderer) {
     camera.fov = +form.fov.value;
     camera.distance = +form.distance.value;
     updateTime(form.time, renderer.render(new Resolution(+form.resolution.width.value, +form.resolution.height.value)));
+    axesRenderer.render(camera);
   });
 
   form.resolution.width.addEventListener('change', () => {
@@ -54,6 +56,7 @@ export function init(renderer: Renderer) {
   });
 
   updateTime(form.time, renderer.render(new Resolution(+form.resolution.width.value, +form.resolution.height.value)));
+  axesRenderer.render(camera);
 }
 
 function byId(id: string) {
