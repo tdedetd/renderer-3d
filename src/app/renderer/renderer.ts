@@ -8,9 +8,9 @@ export class Renderer {
 
   private screen: Screen;
 
-  constructor(private scene: Scene,
-              private canvasId: string,
-              private camera: Camera) {}
+  constructor(private readonly scene: Scene,
+              private readonly canvasId: string,
+              private readonly camera: Camera) {}
 
   public getCamera() {
     return this.camera;

@@ -9,7 +9,10 @@
   <body>
 
     <div class="container">
-      <canvas id="canvas"></canvas>
+      <div class="canvas-container">
+        <canvas id="canvas"></canvas>
+        <canvas id="axes"></canvas>
+      </div>
       <div class="tools">
         <div class="tools__item">
           Camera position
@@ -19,6 +22,7 @@
         </div>
         <div class="tools__item">
           Camera rotation
+          <input type="number" class="input-number" id="input-rotation-x" placeholder="x">
           <input type="number" class="input-number" id="input-rotation-y" placeholder="y">
           <input type="number" class="input-number" id="input-rotation-z" placeholder="z">
         </div>
@@ -41,7 +45,7 @@
         <div class="footer">
           <div id="div-time"></div>
           <div>
-            <a href="https://github.com/tdedetd/renderer-3d/tree/b-raycasting" target="_blank">Github</a>
+            <a href="https://github.com/tdedetd/renderer-3d/" target="_blank">Github</a>
           </div>
         </div>
       </div>
