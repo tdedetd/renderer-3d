@@ -26,7 +26,8 @@ export function init(renderer: Renderer) {
     resolution: {
       width: <HTMLInputElement>byId('input-width'),
       height: <HTMLInputElement>byId('input-height')
-    }
+    },
+    lighting: <HTMLInputElement>byId('input-lighting')
   };
 
   form.position.x.value = String(camera.position.x);
@@ -42,11 +43,14 @@ export function init(renderer: Renderer) {
   form.resolution.width.value = String(camera.resolution.width);
   form.resolution.height.value = String(camera.resolution.height);
 
+  form.lighting.checked = renderer.lighting;
+
   button.addEventListener('click', () => {
     camera.position = new Point3d(+form.position.x.value, +form.position.y.value, +form.position.z.value);
     camera.rotation = new Rotation(+form.rotation.x.value, +form.rotation.y.value, +form.rotation.z.value);
     camera.fov = +form.fov.value;
     camera.distance = +form.distance.value;
+    renderer.lighting = form.lighting.checked;
     updateTime(form.time, renderer.render(new Resolution(+form.resolution.width.value, +form.resolution.height.value)));
     axesRenderer.render(camera);
   });

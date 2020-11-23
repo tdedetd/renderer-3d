@@ -33,11 +33,12 @@ scene.addObjects(
     width: 100
   }),
 );
+scene.lightSource = new Point3d(500, -400, 600);
 
 const camera = new Camera();
-camera.position = new Point3d(-7, -5, 6);
-camera.rotation = new Rotation(0, 10, 29);
-camera.distance = 17;
+camera.position = new Point3d(-12, -6, 3);
+camera.rotation = new Rotation(0, 1, 23);
+camera.distance = 30;
 camera.resolution = new Resolution(160, 120);
 camera.fov = 80;
 
