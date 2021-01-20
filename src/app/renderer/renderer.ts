@@ -27,7 +27,6 @@ export class Renderer {
     const t0 = performance.now();
     this.screen = new Screen(this.canvasId, resolution);
     this.camera.resolution = resolution;
-    this.camera.updateCanvasConfig();
 
     for (let y = 0; y < resolution.height; y++) {
       for (let x = 0; x < resolution.width; x++) {
